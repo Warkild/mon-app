@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
-// Liste des langues disponibles
-const LANGUAGES = [
-    { id: "english", label: "Anglais", flag: "/img/flags/GBR.png" },
-    { id: "french", label: "Français", flag: "/img/flags/FRA.png" },
-    { id: "spanish", label: "Espagnol", flag: "/img/flags/ESP.png" },
-    { id: "german", label: "Allemand", flag: "/img/flags/DEU.png" },
-    { id: "italian", label: "Italien", flag: "/img/flags/ITA.png" },
+// Liste des pays disponibles
+const COUNTRIES = [
+    { id: "france", label: "France", flag: "/img/flags/FRA.png" },
+    { id: "spain", label: "Espagne", flag: "/img/flags/ESP.png" },
+    { id: "germany", label: "Allemagne", flag: "/img/flags/DEU.png" },
+    { id: "italy", label: "Italie", flag: "/img/flags/ITA.png" },
+    { id: "united-kingdom", label: "Royaume-Uni", flag: "/img/flags/GBR.png" },
 ];
 
-const FilterLanguage = () => {
-    const [selectedLanguages, setSelectedLanguages] = useState([]); // Langues sélectionnées
+const FilterCountry = () => {
+    const [selectedCountries, setSelectedCountries] = useState([]); // Pays sélectionnés
     const [input, setInput] = useState(""); // Texte de l'input
     const [suggestions, setSuggestions] = useState([]); // Suggestions filtrées
     const [isOpen, setIsOpen] = useState(false); // État pour afficher ou masquer le contenu
@@ -21,10 +21,10 @@ const FilterLanguage = () => {
         setInput(value);
         if (value) {
             setSuggestions(
-                LANGUAGES.filter(
-                    (lang) =>
-                        lang.label.toLowerCase().includes(value) &&
-                        !selectedLanguages.some((selected) => selected.id === lang.id)
+                COUNTRIES.filter(
+                    (country) =>
+                        country.label.toLowerCase().includes(value) &&
+                        !selectedCountries.some((selected) => selected.id === country.id)
                 )
             );
         } else {
@@ -32,47 +32,36 @@ const FilterLanguage = () => {
         }
     };
 
-    // Fonction pour ajouter une langue
-    const addLanguage = (language) => {
-        if (!language) return;
-        setSelectedLanguages([...selectedLanguages, language]);
+    // Fonction pour ajouter un pays
+    const addCountry = (country) => {
+        if (!country) return;
+        setSelectedCountries([...selectedCountries, country]);
         setInput(""); // Réinitialiser l'input
         setSuggestions([]); // Effacer les suggestions
     };
 
-    // Fonction pour gérer la touche Entrée
-    const handleKeyDown = (e) => {
-        if (e.key === "Enter" && suggestions.length > 0) {
-            addLanguage(suggestions[0]);
-        }
-    };
-
-    // Fonction pour supprimer une langue
-    const removeLanguage = (languageId) => {
-        setSelectedLanguages(selectedLanguages.filter((lang) => lang.id !== languageId));
+    // Fonction pour supprimer un pays
+    const removeCountry = (countryId) => {
+        setSelectedCountries(selectedCountries.filter((country) => country.id !== countryId));
     };
 
     return (
-        <div className={"border-t border-b pr-5 pl-5 pt-2 pb-3"}>
+        <div className="border-b pr-5 pl-5 pt-2 pb-3">
             <div>
-                {/* Bouton Language dans un div global */}
+                {/* Bouton Pays dans un div global */}
                 <div onClick={() => setIsOpen(!isOpen)} className="flex items-center justify-between cursor-pointer">
-                    {/* Partie gauche : "Langues" et le chiffre */}
+                    {/* Partie gauche : "Pays" et le compteur */}
                     <div className="flex items-center gap-2">
-                        <span className={"font-montserrat font-bold"}>Langues</span>
-                        {selectedLanguages.length > 0 && (
+                        <span className="font-montserrat font-bold">Pays</span>
+                        {selectedCountries.length > 0 && (
                             <span className="bg-indigo-600 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">
-        {selectedLanguages.length}
-      </span>
+                                {selectedCountries.length}
+                            </span>
                         )}
                     </div>
                     {/* Triangle haut/bas complètement à droite */}
-                    <span>
-    {isOpen ? "▲" : "▼"}
-  </span>
+                    <span>{isOpen ? "▲" : "▼"}</span>
                 </div>
-
-
 
                 {/* Contenu du filtre */}
                 {isOpen && (
@@ -83,40 +72,38 @@ const FilterLanguage = () => {
                                 type="text"
                                 value={input}
                                 onChange={handleInputChange}
-                                onKeyDown={handleKeyDown}
-                                placeholder="Ajouter une langue..."
+                                placeholder="Ajouter un pays..."
                                 className="w-full border border-gray-300 rounded-md shadow-sm px-3 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                             />
                             {/* Liste des suggestions */}
                             {suggestions.length > 0 && (
                                 <ul className="absolute z-10 bg-white border border-gray-300 rounded-md shadow-lg w-full mt-1 max-h-40 overflow-y-auto">
-                                    {suggestions.map((language) => (
+                                    {suggestions.map((country) => (
                                         <li
-                                            key={language.id}
-                                            onClick={() => addLanguage(language)}
+                                            key={country.id}
+                                            onClick={() => addCountry(country)}
                                             className="flex items-center gap-2 p-2 cursor-pointer hover:bg-indigo-100"
                                         >
-                                            <img src={language.flag} alt={language.label} className="w-6 h-6" />
-                                            <span className="text-sm font-montserrat">{language.label}</span>
+                                            <img src={country.flag} alt={country.label} className="w-6 h-6" />
+                                            <span className="text-sm font-montserrat">{country.label}</span>
                                         </li>
                                     ))}
                                 </ul>
                             )}
                         </div>
 
-
-                        {/* Liste des langues sélectionnées */}
+                        {/* Liste des pays sélectionnés */}
                         <div>
                             <div className="flex flex-wrap gap-2 mt-4">
-                                {selectedLanguages.map((language) => (
+                                {selectedCountries.map((country) => (
                                     <div
-                                        key={language.id}
+                                        key={country.id}
                                         className="flex items-center space-x-2 px-1 bg-gray-100 border border-gray-300 rounded-md"
                                     >
-                                        <img src={language.flag} alt={language.label} className="h-6" />
-                                        <span className="font-montserrat">{language.label}</span>
+                                        <img src={country.flag} alt={country.label} className="h-6" />
+                                        <span className="font-montserrat">{country.label}</span>
                                         <button
-                                            onClick={() => removeLanguage(language.id)}
+                                            onClick={() => removeCountry(country.id)}
                                             className="text-red-500 font-bold text-lg"
                                         >
                                             ×
@@ -125,13 +112,11 @@ const FilterLanguage = () => {
                                 ))}
                             </div>
                         </div>
-
                     </div>
                 )}
             </div>
         </div>
     );
-
 };
 
-export default FilterLanguage;
+export default FilterCountry;
