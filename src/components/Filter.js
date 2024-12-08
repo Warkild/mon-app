@@ -3,6 +3,7 @@ import FilterLanguage from "./FilterLanguage";
 import FilterDuration from "./FilterDuration";
 import FilterCountry from "./FilterCountry";
 import FilterRelease from "./FilterRelease";
+import FilterDescription from "./FilterDescription";
 
 const Filter = ({ onApplyFilters }) => {
     return (
@@ -13,6 +14,7 @@ const Filter = ({ onApplyFilters }) => {
             <FilterDuration />
             <FilterCountry />
             <FilterRelease />
+            <FilterDescription />
             <button
                 className="w-full bg-indigo-500 text-white py-2 rounded-md mt-4"
                 onClick={onApplyFilters}
