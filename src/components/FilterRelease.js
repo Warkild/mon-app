@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Range } from "react-range";
 
-const FilterRelease = () => {
-    const [startDate, setStartDate] = useState(2000); // Année de début
-    const [endDate, setEndDate] = useState(2016); // Année de fin
-    const [values, setValues] = useState([startDate, endDate]); // Valeurs pour le slider
-    const [isOpen, setIsOpen] = useState(false); // État pour afficher ou masquer le contenu
+const FilterRelease = ({ onDateChange }) => {
+    const [startDate, setStartDate] = useState(2000);
+    const [endDate, setEndDate] = useState(2016);
+    const [values, setValues] = useState([startDate, endDate]);
+    const [isOpen, setIsOpen] = useState(false);
 
-    // Mise à jour des valeurs du slider
     const handleSliderChange = (newValues) => {
         setValues(newValues);
         setStartDate(newValues[0]);
         setEndDate(newValues[1]);
+        onDateChange(newValues[0], newValues[1]); // Remonte les dates au parent
     };
 
     return (
