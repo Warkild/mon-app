@@ -7,9 +7,8 @@ function App() {
 
     const fetchMovies = async () => {
         try {
-            const response = await fetch("http://localhost:8983/solr/movie_core/select?q=*:*", {
+            const response = await fetch("/solr/movie_core/select?q=*:*", {
                 method: 'GET',
-                mode: 'cors'
             });
             const data = await response.json();
             const results = data.response.docs.map((doc) => ({
