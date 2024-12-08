@@ -5,9 +5,11 @@ import Results from "./components/Results";
 function App() {
     const [movies, setMovies] = useState([]);
 
-    const fetchMovies = async () => {
+    const fetchMovies = async (dateRange) => {
+        const [start, end] = dateRange;
+        const query = `movie_release:[${start} TO ${end}]`; // Ajoute les dates dans la requête
         try {
-            const response = await fetch("/solr/movie_core/select?q=*:*", {
+            const response = await fetch("/solr/movie_core/select?q=${query}&rows=100", {
                 method: 'GET',
             });
             const data = await response.json();
