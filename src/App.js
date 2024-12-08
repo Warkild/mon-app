@@ -5,11 +5,13 @@ import Results from "./components/Results";
 function App() {
     const [movies, setMovies] = useState([]);
 
-    const fetchMovies = async (dateRange) => {
-        const [start, end] = dateRange;
-        const query = `movie_release:[${start} TO ${end}]`; // Ajoute les dates dans la requête
+    const fetchMovies = async (dateRange, runtimeRange ) => {
+        const [startYear, endYear] = dateRange;
+        const [minRuntime, maxRuntime] = runtimeRange;
+
+        const query = `movie_release:[${startYear} TO ${endYear}] AND runtime:[${minRuntime} TO ${maxRuntime}]`;
         try {
-            const response = await fetch("/solr/movie_core/select?q=${query}&rows=100", {
+            const response = await fetch(`/solr/movie_core/select?q=${query}&rows=100`, {
                 method: 'GET',
             });
             const data = await response.json();

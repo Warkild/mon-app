@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Range } from "react-range";
 
-const FilterDuration = () => {
-    const [min, setMin] = useState(0); // Temps minimum
-    const [max, setMax] = useState(120); // Temps maximum
-    const [values, setValues] = useState([min, max]); // Valeurs pour le slider
-    const [isOpen, setIsOpen] = useState(false); // État pour afficher ou masquer le contenu
+const FilterDuration = ({ onDurationChange }) => {
+    const [min, setMin] = useState(0);
+    const [max, setMax] = useState(120);
+    const [values, setValues] = useState([min, max]);
+    const [isOpen, setIsOpen] = useState(false);
 
-    // Mise à jour des valeurs du slider
     const handleSliderChange = (newValues) => {
         setValues(newValues);
         setMin(newValues[0]);
         setMax(newValues[1]);
+        onDurationChange(newValues[0], newValues[1]); // Remonte les valeurs au parent
     };
 
     return (
