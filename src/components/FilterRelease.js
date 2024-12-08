@@ -15,7 +15,7 @@ const FilterRelease = () => {
     };
 
     return (
-        <div className="border-t border-b pr-5 pl-5 pt-2 pb-3">
+        <div className="border-b pr-5 pl-5 pt-2 pb-3">
             <div>
                 {/* Bouton Dates */}
                 <div onClick={() => setIsOpen(!isOpen)} className="flex items-center justify-between cursor-pointer">
